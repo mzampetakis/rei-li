@@ -1,2 +1,2 @@
-# rei-li
+# reili
 A general purpose http Rate Limiter
