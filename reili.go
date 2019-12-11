@@ -1,5 +1,7 @@
-// Package reili provides a simple but
-// general purpose http rate limiter.
+// Package reili provides a simple but general purpose
+// http rate limiter http middleware.
+// It uses the rate package and support limit and burst at second window.
+// Visitor identifier is defined bu the end user.
 package reili
 
 import (
