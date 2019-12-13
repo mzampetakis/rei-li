@@ -1,7 +1,7 @@
 // Package reili provides a simple but general purpose
 // http rate limiter http middleware.
 // It uses the rate package and support limit and burst at second window.
-// Visitor identifier is defined bu the end user.
+// Visitor identifier is defined by the end user.
 package reili
 
 import (
@@ -46,19 +46,19 @@ func NewRateLimiter(rps float64, burstReq int, identifier VisitorIdentifier) *Ra
 	return &newRateLimiter
 }
 
-// VisitorIdentifier is an interface with a single functionrequirement.
-// The function that requires is a identifyVisitor(r *http.Request) (string, error)
+// VisitorIdentifier is an interface with a single function requirement.
+// The function that requires is a IdentifyVisitor(r *http.Request) (string, error)
 // which is used to identify a user by a string using the *http.Request
 // It is used in every Limit call to identify the user.
 type VisitorIdentifier interface {
-	identifyVisitor(r *http.Request) (string, error)
+	IdentifyVisitor(r *http.Request) (string, error)
 }
 
 // Limit is an http limiter middleware that uses a specific RateLimiter
 // to limit or allow http requests.
 func (reili *RateLimiter) Limit(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		id, err := reili.visitorIdentifier.identifyVisitor(r)
+		id, err := reili.visitorIdentifier.IdentifyVisitor(r)
 		if err != nil {
 			log.Println(err.Error())
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
